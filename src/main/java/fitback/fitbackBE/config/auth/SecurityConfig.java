@@ -2,16 +2,21 @@ package fitback.fitbackBE.config.auth;
 
 import fitback.fitbackBE.domain.user.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
 @EnableWebSecurity //Spring Security 설정들 활성화
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
 
-    protected void configure(HttpSecurity http) throws Exception{
+    @Bean
+    @Order(SecurityProperties.BASIC_AUTH_ORDER)
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable() //h2-console 화면을 사용하기 위해 해당 옵션들을 disable
@@ -28,9 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .logout().logoutSuccessUrl("/") //로그아웃 기능에 대한 여러 설정의 진입점 , 로그아웃 시 /주소로 이동
                 .and()
                 .oauth2Login() //OAuth2 로그인 기능에 대한 여러 설정 진입점
+                .defaultSuccessUrl("/")			// 로그인 성공하면 "/" 으로 이동
                 .userInfoEndpoint() //OAuth2 로그인 성공 시 싸용자 정보를 가져올 때의 설정들 담당
                 .userService(customOAuth2UserService); //소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체 등록
         //리소스 서버(소셜 서비스들)에서 사용자 정보를 가져온 상태에서 추가로 진행하고ㅕ 하는 기능 명시할 수 있음
+        return http.build();
     }
 
 }
