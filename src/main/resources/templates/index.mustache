@@ -1,8 +1,7 @@
 {{>layout/header}}
 
-<h1>Fitback</h1>
+<h1>fitback</h1>
 <div class="col-md-12">
-    <!--로그인 기능 영역-->
     <div class="row">
         <div class="col-md-6">
             {{#userName}}
@@ -11,9 +10,10 @@
             {{/userName}}
             {{^userName}}
                 <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+                <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
             {{/userName}}
         </div>
     </div>
-</div>
+    <br>
 
 {{>layout/footer}}
