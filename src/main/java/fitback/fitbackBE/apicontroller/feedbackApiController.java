@@ -38,7 +38,7 @@ public class feedbackApiController {
     @PatchMapping("/{feedback-id}")
     public ResponseEntity patchFeedback(@PathVariable("feedback-id")@Positive long id, PatchFeedbackRequest request){
         request.setFbId(id);
-        Feedback feedback = feedbackService.upsateFeedback(mapper.mapPatchFbRqToFeedback(request));
+        Feedback feedback = feedbackService.updateFeedback();
 
     }
 
@@ -59,8 +59,16 @@ public class feedbackApiController {
         public CreatedFeedbackResponse(Long id){ this.id = id;}
     }
 
-
+    @Data
     private class PatchFeedbackRequest {
+        private Long id;
+        private String title;
+        private String contents;
+        private SessionType sessionType;
+        private PublishType publishType;
 
+        public void setFbId(long id) {
+            this.id = id;
+        }
     }
 }
