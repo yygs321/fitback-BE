@@ -1,5 +1,5 @@
 package fitback.fitbackBE.domain;
 
 public enum SessionType {
-    REGULAR,EXTRA
+    REGULAR,EXTRA,ABSENT
 }
