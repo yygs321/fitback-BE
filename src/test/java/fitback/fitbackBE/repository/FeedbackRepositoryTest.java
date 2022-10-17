@@ -22,7 +22,7 @@ import  static org.assertj.core.api.Assertions.*;
     @DisplayName("피드백 생성 테스트")
     void testCreateFeedback(){
         //given 제목, 내용 적힌 객체 주어짐
-       final Feedback feedback = feedback.builder()
+       final Feedback feedback = Feedback.builder()
                .contents("컨텐츠입니다")
                .title("제목입니다")
                .build();

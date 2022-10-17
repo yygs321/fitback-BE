@@ -1,5 +1,6 @@
 package fitback.fitbackBE.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table
 @Getter
 @Builder
+@AllArgsConstructor
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
